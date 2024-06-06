@@ -36,24 +36,12 @@ module.exports = {
 					const data = await response.body.json(); // Parse the JSON response only once
 					
 					console.log("API Response:", data); // Log the data for debugging purposes
-
 					
 					if (!data || !data.response) {
 						console.error("Empty or undefined data received from API.");
 						await interaction.editReply("Error: No content received from API.");
 					} else {
-                        // Custom response for specific prompts
-                        const customResponses = {
-                            'hows sfu': 'prison', // Add other custom mappings as needed
-                            'yo': 'wassup',
-                            'fav anime' : 'Attack on Titan'
-                        };
-
-                        // Check if the promptText matches any of the custom responses
-                        const customReply = customResponses[promptText.toLowerCase()]; 
-                        const replyMessage = customReply ? customReply : data.response;
-
-                        await interaction.editReply(`${interaction.user}: ${promptText}\n\nMartinGPT: ${replyMessage}`);
+						await interaction.editReply(`${interaction.user}: ${promptText}  \n\nMartinGPT: ${data.response}`);
 					}
 				} else {
 					throw new Error(`API responded with status code: ${response.statusCode}`);
